@@ -1,5 +1,5 @@
 ###########################################################
-"Algorithm for N-nary Alphabet Code Generation"
+"Algorithm for N-ary Alphabet Code Generation"
 
 __author__     = "Steven Greasby"
 __copyright__  = "Copyright (C) 2015 Steven Greasby"
@@ -41,7 +41,7 @@ def get_y0( n, code ):
 # The resulting x-index list is combined with the provided
 # y0 list to create an x/y list tuple.
 #
-# All N-nary codes have diagonal symmetry. When looking
+# All N-ary codes have diagonal symmetry. When looking
 # at an individual column or row, the code sequences
 # eventually repeat. This occurs when one either the x or y
 # list is a higher order (greater length) than the other.
