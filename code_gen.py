@@ -15,12 +15,12 @@ __maintainer__ = "Steven Greasby"
 # base-n value is placed in a list, where index 0 contains
 # the "ones" digit, index 1 contains the n's digit, index 2
 # contains the (n**2)'s digit, etc.
-# 
+#
 # Example: n=16, code=42
 # decimal 42 in base-16 is 0x2a (using std. hex notation)
 # The returned list would therefore be [10,2]
 #
-# Return: The base-n list 
+# Return: The base-n list
 ###########################################################
 def get_y0( n, code ):
     y0 = []
@@ -37,7 +37,7 @@ def get_y0( n, code ):
 # base-n value is placed in a list, where index 0 contains
 # the "ones" digit, index 1 contains the n's digit, index 2
 # contains the (n**2)'s digit, etc.
-# 
+#
 # The resulting x-index list is combined with the provided
 # y0 list to create an x/y list tuple.
 #
@@ -79,7 +79,7 @@ def get_g0( n, x, y ):
     return g0
 
 ###########################################################
-# Get the base-n code letter (g) for the indicated coordinate. 
+# Get the base-n code letter (g) for the indicated coordinate.
 #
 # Letting p be the power of the code matrix, the code
 # letter (g) is calculated as follows:

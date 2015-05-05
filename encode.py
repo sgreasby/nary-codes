@@ -14,7 +14,7 @@ import sys
 import binascii
 
 usage = ("Usage: %s [n] [code] [string]\n"
-         "       where n==15 and code >= 0 ")
+         "       where n==16 and code >= 0 ")
 
 # Parse Arguments
 if(len(sys.argv) != 4 ):
@@ -76,7 +76,7 @@ def encode( n, code, string ):
 
 
 def decode( n, code, string ):
-    # step through each digit 
+    # step through each digit
     # remove n=16 code to each digit
     y0 = cg.get_y0( n, code )
     output=''

@@ -16,9 +16,9 @@ import matplotlib.pyplot as plt
 
 usage = ("Usage: %s [n] [order] {options} \n"
          "       where n>=2 and order >= 1\n"
-	 "       options include:\n"
-	 "           'color'(default) or 'grayscale'\n"
-	 "           'show'(default) or 'hide' the axis")
+     "       options include:\n"
+     "           'color'(default) or 'grayscale'\n"
+     "           'show'(default) or 'hide' the axis")
 
 # Parse Arguments
 if(len(sys.argv) < 3 ):
@@ -49,19 +49,19 @@ for arg in sys.argv[3:]:
         plot_color = False
     elif arg == 'color':
         if 'plot_color' in locals():
-    	    error = True
+            error = True
         plot_color = True
     elif arg == 'hide':
         if 'draw_axis' in locals():
-    	    error = True
+            error = True
         draw_axis = False
     elif arg == 'show':
         if 'draw_axis' in locals():
-    	    error = True
+            error = True
         draw_axis = True
     else:
         error = True
-	
+
     if error is True:
         print( usage % sys.argv[0] )
         sys.exit()

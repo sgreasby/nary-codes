@@ -39,12 +39,13 @@ if( n < 2 ) or ( order < 1 ):
 
 size = n**order
 
+g = []
 # Walk through every x,y pair and get the code letter (g)
 for code in range(0,size):
     y0 = cg.get_y0( n, code)
+    g.append([])
     for index in range(0, size):
         (x,y) = cg.get_xy( n, index, y0 )
-        g = cg.get_g( n, x, y )
-        print("%d " % g, end=""),
-    print("")
+        g[code].append( cg.get_g( n, x, y ) )
+    print(g[code])
 
