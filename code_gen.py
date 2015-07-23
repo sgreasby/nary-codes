@@ -26,7 +26,7 @@ def get_y0( n, code ):
     y0 = []
     while( code > 0 ):
         y0.append( int(code % n) )
-        code /= n
+        code = int( code / n )
     return y0
 
 
@@ -56,7 +56,7 @@ def get_xy( n, index, y0 ):
     x = []
     while (index > 0) and (len(x)<len(y0)):
         x.append( int(index % n) )
-        index /= n
+        index = int( index / n )
     return (x,y0[:len(x)])
 
 
@@ -75,7 +75,7 @@ def get_g0( n, x, y ):
     else:
         g0 = ( x + y - 1)
         if g0 >= n:
-            g0 -= n
+            g0 -= (n-1)
     return g0
 
 ###########################################################
