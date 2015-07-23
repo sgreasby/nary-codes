@@ -17,26 +17,25 @@ usage = ("Usage: %s [n] [code] [string]\n"
          "       where n==16 and code >= 0 ")
 
 # Parse Arguments
-if(len(sys.argv) != 4 ):
-
+if len( sys.argv ) != 4:
     print( usage % sys.argv[0] )
     sys.exit()
 
 try:
-    n = int(sys.argv[1])
+    n = int( sys.argv[1] )
 except ValueError:
     print( usage % sys.argv[0] )
     sys.exit()
 
 try:
-    code = int(sys.argv[2])
+    code = int( sys.argv[2] )
 except ValueError:
     print( usage % sys.argv[0] )
     sys.exit()
 
 string = sys.argv[3]
 
-if( n != 16 ) or ( code < 0 ):
+if ( n != 16 ) or ( code < 0 ):
     print( usage % sys.argv[0] )
     sys.exit()
 
@@ -52,26 +51,26 @@ if( n != 16 ) or ( code < 0 ):
 def encode( n, code, string ):
     print( "Encoding: %s" % string )
 
-    # step through each digit 
+    # step through each digit
     # apply n=16 code to each digit
     y0 = cg.get_y0( n, code )
-    output=''
+    output = ''
     index = 0;
     for char in string:
-        (x,y) = cg.get_xy( n, index, y0 )
-        index+=1
+        ( x, y ) = cg.get_xy( n, index, y0 )
+        index += 1
         g = cg.get_g( n, x, y )
-        nib0 = (ord(char)&0x0f) + g
+        nib0 = ( ord( char ) & 0x0f ) + g
         if nib0 >= n:
             nib0 -= n
 
-        (x,y) = cg.get_xy( n, index, y0 )
-        index+=1
+        ( x, y ) = cg.get_xy( n, index, y0 )
+        index += 1
         g = cg.get_g( n, x, y )
-        nib1 = (ord(char)>>4) + g
+        nib1 = ( ord( char ) >> 4 ) + g
         if nib1 >= n:
             nib1 -= n
-        output += chr(nib0|(nib1<<4))
+        output += chr( nib0 | ( nib1 << 4 ) )
     return output
 
 
@@ -79,27 +78,27 @@ def decode( n, code, string ):
     # step through each digit
     # remove n=16 code to each digit
     y0 = cg.get_y0( n, code )
-    output=''
+    output = ''
     index = 0
     for char in string:
-        (x,y) = cg.get_xy( n, index, y0 )
-        index+=1
+        ( x, y ) = cg.get_xy( n, index, y0 )
+        index += 1
         g = cg.get_g( n, x, y )
-        nib0 = (ord(char)&0x0f) - g
+        nib0 = ( ord( char ) & 0x0f ) - g
         if nib0 < 0:
             nib0 += n
 
-        (x,y) = cg.get_xy( n, index, y0 )
-        index+=1
+        ( x, y ) = cg.get_xy( n, index, y0 )
+        index += 1
         g = cg.get_g( n, x, y )
-        nib1 = (ord(char)>>4) - g
+        nib1 = ( ord( char ) >> 4 ) - g
         if nib1 < 0:
             nib1 += n
-        print( "0x%2x -> 0x%2x" % (ord(char), nib0|(nib1<<4)) )
-        output += chr(nib0|(nib1<<4))
+        print( "0x%2x -> 0x%2x" % ( ord( char ), nib0 | ( nib1 << 4 ) ) )
+        output += chr( nib0 | ( nib1 << 4 ) )
     print( "Decoded: %s" % output )
     return output
 
 
 string2 = encode( n, code, string )
-string3 = decode( n, code, string2)
+string3 = decode( n, code, string2 )

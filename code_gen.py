@@ -24,8 +24,8 @@ __maintainer__ = "Steven Greasby"
 ###########################################################
 def get_y0( n, code ):
     y0 = []
-    while( code > 0 ):
-        y0.append( int(code % n) )
+    while code > 0:
+        y0.append( int( code % n ) )
         code = int( code / n )
     return y0
 
@@ -54,10 +54,10 @@ def get_y0( n, code ):
 ###########################################################
 def get_xy( n, index, y0 ):
     x = []
-    while (index > 0) and (len(x)<len(y0)):
-        x.append( int(index % n) )
+    while ( index > 0 ) and ( len( x ) < len( y0 ) ):
+        x.append( int( index % n ) )
         index = int( index / n )
-    return (x,y0[:len(x)])
+    return ( x, y0[:len( x )] )
 
 
 ###########################################################
@@ -70,12 +70,12 @@ def get_xy( n, index, y0 ):
 # Return: The base-n code letter (g)
 ###########################################################
 def get_g0( n, x, y ):
-    if (x==0) or (y==0):
+    if ( x == 0 ) or ( y == 0 ):
         g0 = 0
     else:
         g0 = ( x + y - 1)
         if g0 >= n:
-            g0 -= (n-1)
+            g0 -= ( n - 1 )
     return g0
 
 ###########################################################
@@ -90,8 +90,8 @@ def get_g0( n, x, y ):
 ###########################################################
 def get_g( n, x, y ):
     g = 0;
-    for i in range(0, len(x)):
-        g += get_g0(n,x[i],y[i])
+    for i in range( len( x ) ):
+        g += get_g0( n, x[i], y[i] )
         if g >= n:
             g -= n
     return g
