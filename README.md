@@ -1,5 +1,7 @@
 # nary-codes
 
+Get more info about the theory at http://www.hadamardcodes.com
+
 ## Description
 This repository contains algorithms for generating n-ary
 alphabet code sequences and sample implementation code.
