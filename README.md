@@ -21,16 +21,24 @@ Then, increment either "n" or "order" and run the script(s) again.
 The matrix size grow exponentially so large values of "n" or "order" will significantly impact processing time.
 
 **print_matrix.py** - Prints the specified n-ary matrix to the screen.  
-Usage: `print_matrix.py [n] [order]`  
+Usage: `python print_matrix.py [n] [order]`  
 &nbsp;&nbsp;&nbsp;&nbsp;where n>=2 and order >= 1
 
+Example Output:
+
+![Printout of Second Order 3-ary Code Matrix](3-ary_code_order2.png?raw=true "Printout of Second Order 3-ary Code Matrix")
+
 **plot_matrix.py** - Plots a graphical representation of the specified n-ary matrix.  
-Usage: `plot_matrix.py [n] [order] {options}`  
+Usage: `python plot_matrix.py [n] [order] {options}`  
 &nbsp;&nbsp;&nbsp;&nbsp;where n>=2 and order >= 1  
 &nbsp;&nbsp;&nbsp;&nbsp;options include:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'color'(default) or 'grayscale'  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'show'(default) or 'hide' the axis
 
+Example Output:
+
+![Plot of Second Order 4-ary Code Matrix](4-ary_code_order2.png?raw=true "Plot of Second Order 4-ary Code Matrix")
+
 **encode.py** - Encodes the specified string using an n-ary alphabet code sequence  
-Usage: `encode.py [n] [code] [string]`  
+Usage: `python encode.py [n] [code] [string]`  
 &nbsp;&nbsp;&nbsp;&nbsp;where n==16 and code >= 0
