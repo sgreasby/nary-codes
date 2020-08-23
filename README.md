@@ -39,6 +39,13 @@ Example Output:
 
 ![Plot of Second Order 4-ary Code Matrix](4-ary_code_order2.png?raw=true "Plot of Second Order 4-ary Code Matrix")
 
-**encode.py** - Encodes the specified string using an n-ary alphabet code sequence  
-Usage: `python encode.py [n] [code] [string]`  
-&nbsp;&nbsp;&nbsp;&nbsp;where n==16 and code >= 0
+**encode.py** - Encodes the specified string using a 16-ary alphabet code sequence  
+Usage: `python encode.py [code] [string]`  
+&nbsp;&nbsp;&nbsp;&nbsp;where 0<=code<16
+
+Example Output:
+
+![Printout of Encoded/Decoded String](encode.png?raw=true "Printout of Encoded/Decoded String")
+
+
+

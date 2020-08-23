@@ -3,7 +3,7 @@
 "Sample of how to encode/decode text strings"
 
 __author__     = "Steven Greasby"
-__copyright__  = "Copyright (C) 2015 Steven Greasby"
+__copyright__  = "Copyright (C) 2015-2020 Steven Greasby"
 __license__    = "GPL 2.0"
 __url__        = "http://github.com/sgreasby/nary-codes"
 __maintainer__ = "Steven Greasby"
@@ -13,29 +13,24 @@ import code_gen as cg
 import sys
 import binascii
 
-usage = ("Usage: %s [n] [code] [string]\n"
-         "       where n==16 and code >= 0 ")
+usage = ("Usage: %s [code] [string]\n"
+         "       0<=code<16 ")
 
 # Parse Arguments
-if len( sys.argv ) != 4:
+if len( sys.argv ) != 3:
     print( usage % sys.argv[0] )
     sys.exit()
 
 try:
-    n = int( sys.argv[1] )
+    code = int( sys.argv[1] )
 except ValueError:
     print( usage % sys.argv[0] )
     sys.exit()
 
-try:
-    code = int( sys.argv[2] )
-except ValueError:
-    print( usage % sys.argv[0] )
-    sys.exit()
+string = sys.argv[2]
+n = 16
 
-string = sys.argv[3]
-
-if ( n != 16 ) or ( code < 0 ):
+if ( code < 0 ) or ( code >= n ):
     print( usage % sys.argv[0] )
     sys.exit()
 
@@ -49,8 +44,6 @@ if ( n != 16 ) or ( code < 0 ):
 # using another sequence to transpose bits or groups of bits.
 
 def encode( n, code, string ):
-    print( "Encoding: %s" % string )
-
     # step through each digit
     # apply n=16 code to each digit
     y0 = cg.get_y0( n, code )
@@ -94,11 +87,16 @@ def decode( n, code, string ):
         nib1 = ( ord( char ) >> 4 ) - g
         if nib1 < 0:
             nib1 += n
-        print( "0x%2x -> 0x%2x" % ( ord( char ), nib0 | ( nib1 << 4 ) ) )
         output += chr( nib0 | ( nib1 << 4 ) )
-    print( "Decoded: %s" % output )
     return output
 
+print( "Encoding: %s" % string )
 
 string2 = encode( n, code, string )
 string3 = decode( n, code, string2 )
+
+for idx in range( len(string) ):
+    print( "\'%s\': 0x%02x -> 0x%02x -> 0x%02x" % ( string[idx], ord(string[idx]), ord(string2[idx]), ord(string3[idx]) ) )
+
+print( "Decoded: %s" % string3 )
+
