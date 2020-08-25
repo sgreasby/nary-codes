@@ -3,7 +3,7 @@
 "Draw a (n**order)x(n**order) code matrix"
 
 __author__     = "Steven Greasby"
-__copyright__  = "Copyright (C) 2015 Steven Greasby"
+__copyright__  = "Copyright (C) 2015-2020 Steven Greasby"
 __license__    = "GPL 2.0"
 __url__        = "http://github.com/sgreasby/nary-codes"
 __maintainer__ = "Steven Greasby"
@@ -82,23 +82,33 @@ plt.xlim( [0,size] )
 plt.ylim( [0,size] )
 plt.gca().invert_yaxis()
 
-# Walk through every x,y pair and get the code letter (g)
+# Walk through every x,y pair to build the code letter matrix
 # Then plot a grayscale or color square representing the
 # code letter at the appropriate coordinates
-for code in range( size ):
-    y0 = cg.get_y0( n, code )
-    for index in range( size ):
-        ( x, y ) = cg.get_xy( n, index, y0 )
-        g = cg.get_g( n, x, y )
-
+for y in range(size):
+    y_components = cg.get_components( n, y )
+    for x in range(size):
+        if( x<y ):
+            # Already plotted using symmetry
+            continue
+        x_components = cg.get_components( n, x )
+        code_letter = cg.get_code_letter( n, x_components, y_components)
         if plot_color is True:
-            shade = float( g ) / n
-            rect = mpl.patches.Rectangle( ( index, code ), 1, 1, color=mpl.colors.hsv_to_rgb( [shade,1,1] ) )
+            shade = float( code_letter ) / n
+            rect = mpl.patches.Rectangle( ( x, y ), 1, 1, color=mpl.colors.hsv_to_rgb( [shade,1,1] ) )
+            ax.add_patch( rect )
+            # Due to diagonal symmetry, the values at x,y and y,x are the same
+            rect = mpl.patches.Rectangle( ( y, x ), 1, 1, color=mpl.colors.hsv_to_rgb( [shade,1,1] ) )
+            ax.add_patch( rect )
+            
+                
         else:
-            shade = 1 - float( g ) / ( n - 1 )
-            rect = mpl.patches.Rectangle( ( index, code ), 1, 1, color=mpl.colors.hsv_to_rgb( [0,0,shade] ) )
-
-        ax.add_patch( rect )
+            shade = 1 - float( code_letter ) / ( n - 1 )
+            rect = mpl.patches.Rectangle( ( x, y ), 1, 1, color=mpl.colors.hsv_to_rgb( [0,0,shade] ) )
+            ax.add_patch( rect )
+            # Due to diagonal symmetry, the values at x,y and y,x are the same          
+            rect = mpl.patches.Rectangle( ( y, x ), 1, 1, color=mpl.colors.hsv_to_rgb( [0,0,shade] ) )
+            ax.add_patch( rect )
 
 if draw_axis:
     ax.set_xlabel( 'index' )

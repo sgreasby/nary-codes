@@ -3,7 +3,7 @@
 "Generate a (n**order)x(n**order) code matrix"
 
 __author__     = "Steven Greasby"
-__copyright__  = "Copyright (C) 2015 Steven Greasby"
+__copyright__  = "Copyright (C) 2015-2020 Steven Greasby"
 __license__    = "GPL 2.0"
 __url__        = "http://github.com/sgreasby/nary-codes"
 __maintainer__ = "Steven Greasby"
@@ -11,6 +11,7 @@ __maintainer__ = "Steven Greasby"
 
 import code_gen as cg
 import sys
+import numpy as np
 
 usage = ("Usage: %s [n] [order]\n"
          "       where n>=2 and order >= 1")
@@ -38,13 +39,22 @@ if ( n < 2 ) or ( order < 1 ):
 
 size = n ** order
 
-g = []
-# Walk through every x,y pair and get the code letter (g)
-for code in range( size ):
-    y0 = cg.get_y0( n, code )
-    g.append( [] )
-    for index in range( size ):
-        ( x, y ) = cg.get_xy( n, index, y0 )
-        g[code].append( cg.get_g( n, x, y ) )
-    print( g[code] )
+# Create matrix of -1
+matrix = np.ones([size,size])
+
+# Walk through every x,y pair to build the code letter matrix
+for y in range(size):
+    y_components = cg.get_components( n, y )
+    for x in range(size):
+        if( x<y ):
+            # Already calculated using symmetry
+            continue
+
+        x_components = cg.get_components( n, x )
+        matrix[y,x] = cg.get_code_letter( n, x_components, y_components)
+        # The matrix has diagonal symmetry so value at matrix[y,x]
+        # is same as at matrix[x,y]
+        matrix[x,y] = matrix[y,x]
+
+print( matrix )
 

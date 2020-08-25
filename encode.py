@@ -44,47 +44,50 @@ if ( code < 0 ) or ( code >= n ):
 # using another sequence to transpose bits or groups of bits.
 
 def encode( n, code, string ):
+    x = 0;
+    y = code
+    
     # step through each digit
     # apply n=16 code to each digit
-    y0 = cg.get_y0( n, code )
+    y_components = cg.get_components( n, y )
     output = ''
-    index = 0;
     for char in string:
-        ( x, y ) = cg.get_xy( n, index, y0 )
-        index += 1
-        g = cg.get_g( n, x, y )
-        nib0 = ( ord( char ) & 0x0f ) + g
+        x_components = cg.get_components( n, x )
+        x += 1
+        code_letter = cg.get_code_letter( n, x_components, y_components )
+        nib0 = ( ord( char ) & 0x0f ) + code_letter
         if nib0 >= n:
             nib0 -= n
 
-        ( x, y ) = cg.get_xy( n, index, y0 )
-        index += 1
-        g = cg.get_g( n, x, y )
-        nib1 = ( ord( char ) >> 4 ) + g
+        x_components = cg.get_components( n, x )
+        x += 1
+        code_letter = cg.get_code_letter( n, x_components, y_components )
+        nib1 = ( ord( char ) >> 4 ) + code_letter
         if nib1 >= n:
             nib1 -= n
         output += chr( nib0 | ( nib1 << 4 ) )
     return output
 
-
 def decode( n, code, string ):
+    x = 0
+    y = code
+
     # step through each digit
     # remove n=16 code to each digit
-    y0 = cg.get_y0( n, code )
+    y_components = cg.get_components( n, y )
     output = ''
-    index = 0
     for char in string:
-        ( x, y ) = cg.get_xy( n, index, y0 )
-        index += 1
-        g = cg.get_g( n, x, y )
-        nib0 = ( ord( char ) & 0x0f ) - g
+        x_components = cg.get_components( n, x )
+        x += 1
+        code_letter = cg.get_code_letter( n, x_components, y_components )
+        nib0 = ( ord( char ) & 0x0f ) - code_letter
         if nib0 < 0:
             nib0 += n
 
-        ( x, y ) = cg.get_xy( n, index, y0 )
-        index += 1
-        g = cg.get_g( n, x, y )
-        nib1 = ( ord( char ) >> 4 ) - g
+        x_components = cg.get_components( n, x )
+        x += 1
+        code_letter = cg.get_code_letter( n, x_components, y_components )
+        nib1 = ( ord( char ) >> 4 ) - code_letter
         if nib1 < 0:
             nib1 += n
         output += chr( nib0 | ( nib1 << 4 ) )
