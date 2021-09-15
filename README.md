@@ -1,6 +1,6 @@
 # nary-codes
 
-Get more info about the theory at http://www.hadamardcodes.com
+Get more info about the theory at https://hadamardcodes.com
 
 ## Description
 This repository contains algorithms for generating n-ary
